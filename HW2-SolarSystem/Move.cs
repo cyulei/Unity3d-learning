@@ -14,7 +14,6 @@ public class Move : MonoBehaviour {
     }	
 	// Update is called once per frame
 	void Update () {
-        Vector3 axis = new Vector3(rx, ry, 0);
-        this.transform.RotateAround(father.position, axis, speed * Time.deltaTime);
+        this.transform.RotateAround(father.position, new Vector3(rx, ry, 0), speed * Time.deltaTime);
     }
 }
