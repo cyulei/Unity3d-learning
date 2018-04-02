@@ -15,7 +15,7 @@
  - HW2-PriestsAndDevils：
    - Controllor.cs 游戏的场景控制
    - Models.cs 游戏的模型，比如船、牧师、魔鬼类
-  - UerGUI.cs 用户UI界面
+   - UerGUI.cs 用户UI界面
    - Demo2.mp4 游戏视频
  - 更多游戏制作过程参考博客：https://blog.csdn.net/C486C
 
