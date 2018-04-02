@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ namespace mygame
         void MoveBoat();                                   //移动船
         void Restart();                                    //重新开始
         void MoveRole(RoleModel role);                     //移动角色
+        int Check();                                       //检测游戏结束
     }
 
     public class SSDirector : System.Object
@@ -32,7 +33,6 @@ namespace mygame
 
     public class LandModel
     {
-        //只能在初始化时候赋值
         GameObject land;                                //陆地对象
         Vector3[] positions;                            //保存每个角色放在陆地上的位置
         int land_sign;                                  //到达陆地标志为-1，开始陆地标志为1
@@ -119,7 +119,7 @@ namespace mygame
         GameObject boat;                                          
         Vector3[] start_empty_pos;                                    //船在开始陆地的空位位置
         Vector3[] end_empty_pos;                                      //船在结束陆地的空位位置
-        Move move;
+        Move move;                                                    
         Click click;
         int boat_sign = 1;                                                     //船在开始还是结束陆地
         RoleModel[] roles = new RoleModel[2];                                  //船上的角色
@@ -235,6 +235,7 @@ namespace mygame
         Click click;
         bool on_boat;              //是否在船上       
         Move move;
+        PlayAnimation play_ani;
         LandModel land_model = (SSDirector.GetInstance().CurrentScenceController as Controllor).start_land;
 
         public RoleModel(string role_name)
@@ -251,6 +252,7 @@ namespace mygame
             }
             move = role.AddComponent(typeof(Move)) as Move;
             click = role.AddComponent(typeof(Click)) as Click;
+            play_ani = role.AddComponent(typeof(PlayAnimation)) as PlayAnimation;
             click.SetRole(this);
         }
 
@@ -260,6 +262,16 @@ namespace mygame
         public bool IsOnBoat() { return on_boat; }
         public void SetName(string name) { role.name = name; }
         public void SetPosition(Vector3 pos) { role.transform.position = pos; }
+
+        public void PlayGameOver()
+        {
+            play_ani.Play();
+        }
+
+        public void PlayIdle()
+        {
+            play_ani.NotPlay();
+        }
 
         public void Move(Vector3 vec)
         {
@@ -355,6 +367,20 @@ namespace mygame
                 action.MoveBoat();
             else if(role != null)
                 action.MoveRole(role);
+        }
+    }
+
+    public class PlayAnimation : MonoBehaviour
+    {
+        public void Play()                                  //播放gameover状态的动画
+        {
+            Animator anim = this.GetComponent<Animator>();
+            anim.SetBool("isgameover", true);
+        }
+        public void NotPlay()                              //播放Idle状态的动画
+        {
+            Animator anim = this.GetComponent<Animator>();
+            anim.SetBool("isgameover", false);
         }
     }
 }

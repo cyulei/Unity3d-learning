@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using mygame;
@@ -8,13 +8,13 @@ public class Controllor : MonoBehaviour, ISceneController, IUserAction
     public LandModel end_land;              //结束陆地
     public BoatModel boat;                  //船
     private RoleModel[] roles;              //角色
-    ViewUI view;
+    UserGUI user_gui;
 
     void Start ()
     {
         SSDirector director = SSDirector.GetInstance();
         director.CurrentScenceController = this;
-        view = gameObject.AddComponent<ViewUI>() as ViewUI;
+        user_gui = gameObject.AddComponent<UserGUI>() as UserGUI;
         LoadResources();
     }
 	
@@ -50,14 +50,22 @@ public class Controllor : MonoBehaviour, ISceneController, IUserAction
 
     public void MoveBoat()                  //移动船
     {
-        if (boat.IsEmpty() || view.sign != 0) return;
+        if (boat.IsEmpty() || user_gui.sign != 0) return;
         boat.BoatMove();
-        view.sign = Check();
+        user_gui.sign = Check();
+        if (user_gui.sign == 1)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                roles[i].PlayGameOver();
+                roles[i + 3].PlayGameOver();
+            }
+        }
     }
 
     public void MoveRole(RoleModel role)    //移动角色
     {
-        if (view.sign != 0) return;
+        if (user_gui.sign != 0) return;
         if (role.IsOnBoat())
         {
             LandModel land;
@@ -80,7 +88,15 @@ public class Controllor : MonoBehaviour, ISceneController, IUserAction
             role.GoBoat(boat);
             boat.AddRole(role);
         }
-        view.sign = Check();
+        user_gui.sign = Check();
+        if (user_gui.sign == 1)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                roles[i].PlayGameOver();
+                roles[i + 3].PlayGameOver();
+            }
+        }
     }
 
     public void Restart()
@@ -92,9 +108,17 @@ public class Controllor : MonoBehaviour, ISceneController, IUserAction
         {
             roles[i].Reset();
         }
+        if (user_gui.sign == 1)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                roles[i + 3].PlayIdle();
+                roles[i].PlayIdle();
+            }
+        }
     }
 
-    int Check()
+    public int Check()
     {
         int start_priest = (start_land.GetRoleNum())[0];
         int start_devil = (start_land.GetRoleNum())[1];
