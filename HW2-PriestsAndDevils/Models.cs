@@ -130,7 +130,6 @@ namespace mygame
             boat.name = "boat";
             move = boat.AddComponent(typeof(Move)) as Move;
             click = boat.AddComponent(typeof(Click)) as Click;
-            boat.AddComponent(typeof(Click));
             click.SetBoat(this);
             start_empty_pos = new Vector3[] { new Vector3(9.82F, -1.65F, -4), new Vector3(31, -3.4F, -4) };
             end_empty_pos = new Vector3[] { new Vector3(-29, -1.9F, -4), new Vector3(-4.7F, -3.4F, -4) };
@@ -326,18 +325,17 @@ namespace mygame
         public void MovePosition(Vector3 position)
         {
             end_pos = position;
-            middle_pos = position;
             if (position.y == transform.position.y)         //船只会水平移动
             {  
                 move_sign = 2;
             }
             else if (position.y < transform.position.y)      //角色从陆地到船
-            { 
-                middle_pos.y = transform.position.y;
+            {
+                middle_pos = new Vector3(position.x, transform.position.y, position.z);
             }
             else                                          //角色从船到陆地
-            {                       
-                middle_pos.x = transform.position.x;
+            {
+                middle_pos = new Vector3(transform.position.x, position.y, position.z);
             }
             move_sign = 1;
         }
