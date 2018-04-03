@@ -44,12 +44,12 @@ namespace mygame
                 new Vector3(73F,14.73F,-4), new Vector3(82F,14.73F,-4), new Vector3(91F,14.73F,-4)};
             if (land_mark == "start")
             {
-                land = Object.Instantiate(Resources.Load("Land", typeof(GameObject)), new Vector3(70, 1, 0), Quaternion.identity, null) as GameObject;
+                land = Object.Instantiate(Resources.Load("Land", typeof(GameObject)), new Vector3(70, 1, 0), Quaternion.identity) as GameObject;
                 land_sign = 1;
             }
             else
             {
-                land = Object.Instantiate(Resources.Load("Land", typeof(GameObject)), new Vector3(-70, 1, 0), Quaternion.identity, null) as GameObject;
+                land = Object.Instantiate(Resources.Load("Land", typeof(GameObject)), new Vector3(-70, 1, 0), Quaternion.identity) as GameObject;
                 land_sign = -1;
             }
         }
@@ -126,7 +126,7 @@ namespace mygame
 
         public BoatModel()
         {
-            boat = Object.Instantiate(Resources.Load("Boat", typeof(GameObject)), new Vector3(38, -3.9F, -2.9F), Quaternion.identity, null) as GameObject;
+            boat = Object.Instantiate(Resources.Load("Boat", typeof(GameObject)), new Vector3(38, -3.9F, -2.9F), Quaternion.identity) as GameObject;
             boat.name = "boat";
             move = boat.AddComponent(typeof(Move)) as Move;
             click = boat.AddComponent(typeof(Click)) as Click;
@@ -241,12 +241,12 @@ namespace mygame
         {
             if (role_name == "priest")
             {
-                role = Object.Instantiate(Resources.Load("Priest", typeof(GameObject)), Vector3.zero, Quaternion.Euler(0, -90, 0), null) as GameObject;
+                role = Object.Instantiate(Resources.Load("Priest", typeof(GameObject)), Vector3.zero, Quaternion.Euler(0, -90, 0)) as GameObject;
                 role_sign = 0;
             }
             else
             {
-                role = Object.Instantiate(Resources.Load("Devil", typeof(GameObject)), Vector3.zero, Quaternion.Euler(0, -90, 0), null) as GameObject;
+                role = Object.Instantiate(Resources.Load("Devil", typeof(GameObject)), Vector3.zero, Quaternion.Euler(0, -90, 0)) as GameObject;
                 role_sign = 1;
             }
             move = role.AddComponent(typeof(Move)) as Move;

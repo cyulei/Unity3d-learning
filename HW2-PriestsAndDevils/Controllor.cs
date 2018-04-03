@@ -20,7 +20,7 @@ public class Controllor : MonoBehaviour, ISceneController, IUserAction
 	
     public void LoadResources()              //创建水，陆地，角色，船
     {
-        GameObject water = Instantiate(Resources.Load("Water", typeof(GameObject)), Vector3.zero, Quaternion.identity, null) as GameObject;
+        GameObject water = Instantiate(Resources.Load("Water", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
         water.name = "water";       
         start_land = new LandModel("start");
         end_land = new LandModel("end");
