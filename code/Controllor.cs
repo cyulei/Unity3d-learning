@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using mygame;
+
 public class Controllor : MonoBehaviour, ISceneController, IUserAction
 {
     public LandModel start_land;            //开始陆地
