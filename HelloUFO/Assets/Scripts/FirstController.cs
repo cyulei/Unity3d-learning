@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FirstController : MonoBehaviour, ISceneController, IUserAction
 {
-    public IActionManager action_manager;
+    public IActionManager action_manager;                                    //运动管理器接口
     public DiskFactory disk_factory;
     public UserGUI user_gui;
     public ScoreRecorder score_recorder;
-    public bool isPhy = false;
+    public bool isPhy = false;                                               //是否使用物理运动管理器
 
     private Queue<GameObject> disk_queue = new Queue<GameObject>();          //游戏场景中的飞碟队列
     private List<GameObject> disk_notshot = new List<GameObject>();          //没有被打中的飞碟队列

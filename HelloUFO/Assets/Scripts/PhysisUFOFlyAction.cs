@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PhysisUFOFlyAction : SSAction
 {
-    public float gravity = -5;                                 //向下的加速度
     private Vector3 start_vector;                              //初速度向量
     public float power;
     private PhysisUFOFlyAction() { }

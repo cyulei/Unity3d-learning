@@ -25,7 +25,37 @@ public class SSActionManager : MonoBehaviour, ISSActionCallback
             }
             else if (ac.enable)
             {
+                //运动学运动更新
                 ac.Update();
+            }
+        }
+
+        foreach (int key in waitingDelete)
+        {
+            SSAction ac = actions[key];
+            actions.Remove(key);
+            DestroyObject(ac);
+        }
+        waitingDelete.Clear();
+    }
+    protected void FixedUpdate()
+    {
+        foreach (SSAction ac in waitingAdd)
+        {
+            actions[ac.GetInstanceID()] = ac;
+        }
+        waitingAdd.Clear();
+
+        foreach (KeyValuePair<int, SSAction> kv in actions)
+        {
+            SSAction ac = kv.Value;
+            if (ac.destroy)
+            {
+                waitingDelete.Add(ac.GetInstanceID());
+            }
+            else if (ac.enable)
+            {
+                //物理运动更新
                 ac.FixedUpdate();
             }
         }
@@ -38,7 +68,6 @@ public class SSActionManager : MonoBehaviour, ISSActionCallback
         }
         waitingDelete.Clear();
     }
-
     public void RunAction(GameObject gameobject, SSAction action, ISSActionCallback manager)
     {
         action.gameobject = gameobject;

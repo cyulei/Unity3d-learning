@@ -16,14 +16,13 @@ public class ArrowFlyAction : SSAction
         return action;
     }
 
-    public override void Update()
-    {
-        //风的力持续作用在箭身上
-        this.gameobject.GetComponent<Rigidbody>().AddForce(wind, ForceMode.Force);
-    }
+    public override void Update(){}
 
     public override void FixedUpdate()
     {
+        //风的力持续作用在箭身上
+        this.gameobject.GetComponent<Rigidbody>().AddForce(wind, ForceMode.Force);
+
         //检测是否被击中或是超出边界
         if (this.transform.position.z > 30 || this.gameobject.tag == "hit")
         {

@@ -18,9 +18,4 @@ public class FlyActionManager : SSActionManager
         fly = UFOFlyAction.GetSSAction(disk.GetComponent<DiskData>().direction, angle, power);
         this.RunAction(disk, fly, this);
     }
-    //接口继承方法
-    public void playDisk(GameObject disk, float angle, float power)
-    {
-        UFOFly(disk, angle, power);
-    }
 }

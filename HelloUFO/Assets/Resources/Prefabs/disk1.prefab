@@ -38,9 +38,9 @@ GameObject:
   - component: {fileID: 4398539447261786}
   - component: {fileID: 33135145339663658}
   - component: {fileID: 136037749067074800}
+  - component: {fileID: 54422826597061176}
   - component: {fileID: 23705588850379226}
   - component: {fileID: 114784432519315004}
-  - component: {fileID: 54422826597061176}
   m_Layer: 0
   m_Name: disk1
   m_TagString: disk1

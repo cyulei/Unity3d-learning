@@ -20,9 +20,4 @@ public class ScoreRecorder : MonoBehaviour {
         score = temp + score;
         //Debug.Log(score);
     }
-    //重置分数
-    public void Reset()
-    {
-        score = 0;
-    }
 }

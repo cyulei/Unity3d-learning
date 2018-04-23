@@ -26,6 +26,35 @@ public class SSActionManager : MonoBehaviour, ISSActionCallback
             else if (ac.enable)
             {
                 ac.Update();
+            }
+        }
+
+        foreach (int key in waitingDelete)
+        {
+            SSAction ac = actions[key];
+            actions.Remove(key);
+            DestroyObject(ac);
+        }
+        waitingDelete.Clear();
+    }
+
+    protected void FixedUpdate()
+    {
+        foreach (SSAction ac in waitingAdd)
+        {
+            actions[ac.GetInstanceID()] = ac;
+        }
+        waitingAdd.Clear();
+
+        foreach (KeyValuePair<int, SSAction> kv in actions)
+        {
+            SSAction ac = kv.Value;
+            if (ac.destroy)
+            {
+                waitingDelete.Add(ac.GetInstanceID());
+            }
+            else if (ac.enable)
+            {
                 ac.FixedUpdate();
             }
         }
@@ -58,6 +87,7 @@ public class SSActionManager : MonoBehaviour, ISSActionCallback
         }
         else
         {
+            //场景控制器减少一支箭
             FirstSceneController scene_controller = (FirstSceneController)SSDirector.GetInstance().CurrentScenceController;
             scene_controller.ReduceArrow();
         }

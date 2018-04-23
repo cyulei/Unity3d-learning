@@ -20,7 +20,7 @@ public class UserGUI : MonoBehaviour {
         score_style.fontSize = 16;
         bold_style.normal.textColor = new Color(1, 0, 0);
         bold_style.fontSize = 16;
-        over_style.normal.textColor = new Color(1, 0, 0);
+        over_style.normal.textColor = new Color(1, 1, 1);
         over_style.fontSize = 25;
     }
 
