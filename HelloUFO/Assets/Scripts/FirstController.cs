@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class FirstController : MonoBehaviour, ISceneController, IUserAction
 {
-    public FlyActionManager action_manager;
+    public IActionManager action_manager;
     public DiskFactory disk_factory;
     public UserGUI user_gui;
     public ScoreRecorder score_recorder;
+    public bool isPhy = false;
 
     private Queue<GameObject> disk_queue = new Queue<GameObject>();          //游戏场景中的飞碟队列
     private List<GameObject> disk_notshot = new List<GameObject>();          //没有被打中的飞碟队列
@@ -19,19 +20,19 @@ public class FirstController : MonoBehaviour, ISceneController, IUserAction
     private int score_round2 = 10;                                           //去到第二回合所需分数
     private int score_round3 = 25;                                           //去到第三回合所需分数
 
-    void Start ()
+    void Start()
     {
-        SSDirector director = SSDirector.GetInstance();     
-        director.CurrentScenceController = this;             
+        SSDirector director = SSDirector.GetInstance();
+        director.CurrentScenceController = this;
         disk_factory = Singleton<DiskFactory>.Instance;
         score_recorder = Singleton<ScoreRecorder>.Instance;
-        action_manager = gameObject.AddComponent<FlyActionManager>() as FlyActionManager;
+        action_manager = gameObject.AddComponent<ActionManagerAdapter>() as IActionManager;
         user_gui = gameObject.AddComponent<UserGUI>() as UserGUI;
     }
-	
-	void Update ()
+
+    void Update()
     {
-        if(game_start)
+        if (game_start)
         {
             //游戏结束，取消定时发送飞碟
             if (game_over)
@@ -67,12 +68,12 @@ public class FirstController : MonoBehaviour, ISceneController, IUserAction
 
     public void LoadResources()
     {
-        disk_queue.Enqueue(disk_factory.GetDisk(round)); 
+        disk_queue.Enqueue(disk_factory.GetDisk(round));
     }
 
     private void SendDisk()
     {
-        float position_x = 16;                       
+        float position_x = 16;
         if (disk_queue.Count != 0)
         {
             GameObject disk = disk_queue.Dequeue();
@@ -85,9 +86,9 @@ public class FirstController : MonoBehaviour, ISceneController, IUserAction
             Vector3 position = new Vector3(-disk.GetComponent<DiskData>().direction.x * position_x, ran_y, 0);
             disk.transform.position = position;
             //设置飞碟初始所受的力和角度
-            float power = Random.Range(10f, 15f);
-            float angle = Random.Range(15f, 28f);
-            action_manager.UFOFly(disk,angle,power);
+            float power = Random.Range(14f, 16f);
+            float angle = Random.Range(20f, 25f);
+            action_manager.playDisk(disk, angle, power,isPhy);
         }
 
         for (int i = 0; i < disk_notshot.Count; i++)
@@ -114,7 +115,7 @@ public class FirstController : MonoBehaviour, ISceneController, IUserAction
         {
             RaycastHit hit = hits[i];
             //射线打中物体
-            if (hit.collider.gameObject.GetComponent<DiskData>() != null)
+            if (hit.collider.gameObject.GetComponent<DiskData>() != null && game_over == false)
             {
                 //射中的物体要在没有打中的飞碟列表中
                 for (int j = 0; j < disk_notshot.Count; j++)
@@ -124,7 +125,7 @@ public class FirstController : MonoBehaviour, ISceneController, IUserAction
                         not_hit = true;
                     }
                 }
-                if(!not_hit)
+                if (!not_hit)
                 {
                     return;
                 }

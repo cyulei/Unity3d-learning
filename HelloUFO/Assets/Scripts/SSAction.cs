@@ -20,4 +20,8 @@ public class SSAction : ScriptableObject
     {
         throw new System.NotImplementedException();
     }
+    public virtual void FixedUpdate()
+    {
+        throw new System.NotImplementedException();
+    }
 }

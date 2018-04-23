@@ -235,13 +235,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ActionManagerAdapter.cs" />
     <Compile Include="Assets\Scripts\DiskData.cs" />
     <Compile Include="Assets\Scripts\DiskFactory.cs" />
     <Compile Include="Assets\Scripts\FirstController.cs" />
     <Compile Include="Assets\Scripts\FlyActionManager.cs" />
     <Compile Include="Assets\Scripts\Interface.cs" />
     <Compile Include="Assets\Scripts\MyDiskEditor.cs" />
-    <Compile Include="Assets\Scripts\MyPlayerEditor.cs" />
+    <Compile Include="Assets\Scripts\PhysisFlyActionManager.cs" />
+    <Compile Include="Assets\Scripts\PhysisUFOFlyAction.cs" />
     <Compile Include="Assets\Scripts\ScoreRecorder.cs" />
     <Compile Include="Assets\Scripts\SequenceAction.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />

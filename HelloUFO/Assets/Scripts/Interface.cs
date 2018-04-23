@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//运动学和物理运动接口
+public interface IActionManager
+{
+    void playDisk(GameObject disk, float angle, float power,bool isPhy);
+}
+
 public interface ISceneController
 {
     //加载场景

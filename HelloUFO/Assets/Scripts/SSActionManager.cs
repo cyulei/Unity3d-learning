@@ -26,6 +26,7 @@ public class SSActionManager : MonoBehaviour, ISSActionCallback
             else if (ac.enable)
             {
                 ac.Update();
+                ac.FixedUpdate();
             }
         }
 

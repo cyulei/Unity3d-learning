@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections;
 [CustomEditor(typeof(DiskData))]
 [CanEditMultipleObjects]
-public class MyPlayerEditor : Editor
+public class MyDEditor : Editor
 {
     SerializedProperty score;                              //分数
     SerializedProperty color;                              //颜色

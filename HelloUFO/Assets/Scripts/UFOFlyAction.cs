@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UFOFlyAction : SSAction
 {
-    public float gravity = -5;                                 //向下的加速度
+    public float gravity = -6;                                 //向下的加速度
     private Vector3 start_vector;                              //初速度向量
     private Vector3 gravity_vector = Vector3.zero;             //加速度的向量，初始时为0
     private float time;                                        //已经过去的时间
@@ -41,9 +41,9 @@ public class UFOFlyAction : SSAction
         if (this.transform.position.y < -10)
         {
             this.destroy = true;
-            this.callback.SSActionEvent(this);      
+            this.callback.SSActionEvent(this);
         }
     }
-
+    public override void FixedUpdate() { }
     public override void Start() { }
 }
