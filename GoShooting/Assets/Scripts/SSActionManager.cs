@@ -89,7 +89,7 @@ public class SSActionManager : MonoBehaviour, ISSActionCallback
         {
             //场景控制器减少一支箭
             FirstSceneController scene_controller = (FirstSceneController)SSDirector.GetInstance().CurrentScenceController;
-            scene_controller.ReduceArrow();
+            scene_controller.CheckGamestatus();
         }
     }
 }

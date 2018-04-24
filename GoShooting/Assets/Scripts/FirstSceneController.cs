@@ -45,25 +45,6 @@ public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
     {
         if(game_start)
         {
-            //一回合结束之后分数比较
-            if (recorder.arrow_number <= 0 && recorder.score >= recorder.target_score)
-            {
-                round++;
-                arrow_num = 0;
-                if (round == 4)
-                {
-                    game_over = true;
-                }
-                //回收所有的箭
-                for (int i = 0; i < arrow_queue.Count; i++)
-                {
-                    arrow_factory.FreeArrow(arrow_queue[i]);
-                }
-                arrow_queue.Clear();
-                recorder.arrow_number = 10;
-                recorder.score = 0;
-                recorder.target_score = targetscore[round];
-            }
             for (int i = 0; i < arrow_queue.Count; i++)
             {
                 GameObject temp = arrow_queue[i];
@@ -131,6 +112,9 @@ public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
             action_manager.ArrowFly(arrow, wind);
             //副相机开启
             child_camera.GetComponent<ChildCamera>().StartShow();
+            //用户能射出的箭数量减少
+            recorder.arrow_number--;
+            //场景中箭数量增加
             arrow_num++;
         }
     }
@@ -175,13 +159,31 @@ public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
         arrow_queue.Clear();
     }
 
-    public void ReduceArrow()
+    public void CheckGamestatus()
     {
-        recorder.arrow_number--;
+        
         if (recorder.arrow_number <= 0 && recorder.score < recorder.target_score)
         {
             game_over = true;
             return;
+        }
+        else if (recorder.arrow_number <= 0 && recorder.score >= recorder.target_score)
+        {
+            round++;
+            arrow_num = 0;
+            if (round == 4)
+            {
+                game_over = true;
+            }
+            //回收所有的箭
+            for (int i = 0; i < arrow_queue.Count; i++)
+            {
+                arrow_factory.FreeArrow(arrow_queue[i]);
+            }
+            arrow_queue.Clear();
+            recorder.arrow_number = 10;
+            recorder.score = 0;
+            recorder.target_score = targetscore[round];
         }
         //生成新的风向
         wind_directX = Random.Range(-(round + 1), (round + 1));
