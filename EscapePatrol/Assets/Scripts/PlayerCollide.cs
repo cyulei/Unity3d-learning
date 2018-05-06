@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollide : MonoBehaviour {
+public class PlayerCollide : MonoBehaviour
+{
 
     void OnCollisionEnter(Collision other)
     {

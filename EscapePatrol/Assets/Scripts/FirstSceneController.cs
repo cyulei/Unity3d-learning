@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
 {
-    public PropFactory patrol_factory;                             //巡逻者工厂
+    public PropFactory patrol_factory;                               //巡逻者工厂
     public ScoreRecorder recorder;                                   //记录员
     public PatrolActionManager action_manager;                       //运动管理器
     public int wall_sign = -1;                                       //当前玩家所处哪个格子
     public GameObject player;                                        //玩家
     public Camera main_camera;                                       //主相机
+    public float player_speed = 5;                                   //玩家移动速度
+    public float rotate_speed = 135f;                                //玩家旋转速度
     private List<GameObject> patrols;                                //场景中巡逻者列表
     private List<GameObject> crystals;                               //场景水晶列表
-    private float player_speed = 5;                                  //玩家移动速度
-    private float rotate_speed = 135f;                               //玩家旋转速度
     private bool game_over = false;                                  //游戏结束
 
     void Update()
@@ -23,7 +23,7 @@ public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
             patrols[i].gameObject.GetComponent<PatrolData>().wall_sign = wall_sign;
         }
         //水晶收集完毕
-        if(recorder.crystal_number == 0)
+        if(recorder.GetCrystalNumber() == 0)
         {
             Gameover();
         }
@@ -41,6 +41,7 @@ public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
 
     public void LoadResources()
     {
+        Instantiate(Resources.Load<GameObject>("Prefabs/Plane"));
         player = Instantiate(Resources.Load("Prefabs/Player"), new Vector3(0, 9, 0), Quaternion.identity) as GameObject;
         crystals = patrol_factory.GetCrystal();
         patrols = patrol_factory.GetPatrols();
@@ -80,12 +81,12 @@ public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
 
     public int GetScore()
     {
-        return recorder.score;
+        return recorder.GetScore();
     }
 
     public int GetCrystalNumber()
     {
-        return recorder.crystal_number;
+        return recorder.GetCrystalNumber();
     }
     public bool GetGameover()
     {
@@ -110,11 +111,11 @@ public class FirstSceneController : MonoBehaviour, IUserAction, ISceneController
     }
     void ReduceCrystalNumber()
     {
-        recorder.crystal_number--;
+        recorder.ReduceCrystal();
     }
     void AddScore()
     {
-        recorder.score++;
+        recorder.AddScore();
     }
     void Gameover()
     {

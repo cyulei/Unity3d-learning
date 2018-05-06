@@ -8,7 +8,7 @@ public class UserGUI : MonoBehaviour {
     private GUIStyle score_style = new GUIStyle();
     private GUIStyle text_style = new GUIStyle();
     private GUIStyle over_style = new GUIStyle();
-    private int show_time = 8;                         //展示提示的时间长度
+    public  int show_time = 8;                         //展示提示的时间长度
     void Start ()
     {
         action = SSDirector.GetInstance().CurrentScenceController as IUserAction;

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrystalCollide : MonoBehaviour {
-
+public class CrystalCollide : MonoBehaviour
+{
     void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Player" && this.gameObject.activeSelf)

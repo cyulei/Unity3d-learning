@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PropFactory : MonoBehaviour {
-
+public class PropFactory : MonoBehaviour
+{
     private GameObject patrol = null;                              //巡逻兵
     private List<GameObject> used = new List<GameObject>();        //正在被使用的巡逻兵
     private GameObject crystal = null;                             //水晶

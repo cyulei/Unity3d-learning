@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AreaCollide.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\CameraFlow.cs" />
     <Compile Include="Assets\Scripts\CrystalCollide.cs" />
     <Compile Include="Assets\Scripts\FirstSceneController.cs" />
